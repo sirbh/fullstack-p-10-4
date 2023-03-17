@@ -1,8 +1,9 @@
 import { Formik } from "formik";
-import { StyleSheet } from "react-native";
-import { View } from "react-native-web";
+import { StyleSheet, View } from "react-native";
 import SignInForm from "./SignInForm";
 import * as yup from 'yup';
+import useSignIn from "../useHooks/useSignIn";
+import { useNavigate } from "react-router-native";
 
 
 const validationSchema = yup.object().shape({
@@ -13,16 +14,26 @@ const validationSchema = yup.object().shape({
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor:"white"
+    backgroundColor: "white"
   },
 });
 
 const SignIn = () => {
+  const [signIn] = useSignIn()
+  const navigate = useNavigate()
   return (
-    <View style = {styles.container}>
+    <View style={styles.container}>
       <Formik
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={async (values) => {
+          try {
+            const {data}  = await signIn(values)
+            console.log(data)
+            navigate('/')
+          }
+          catch (e) {
+            console.log(e)
+          }
+
         }}
         initialValues={{ username: "", password: "" }}
         validationSchema={validationSchema}

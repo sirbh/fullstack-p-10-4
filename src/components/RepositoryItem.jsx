@@ -1,63 +1,63 @@
 import { View, Image, StyleSheet } from "react-native"
 import Text from "./Text";
 
-const RepositiryItem = ({ repository }) => {
-    const styles = StyleSheet.create({
-        RepoContainer: {
-            padding: 10,
-            marginBottom: 10,
-            backgroundColor: 'white'
-        },
-        descriptionHead: {
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            marginBottom: 15
-        },
-        avatar: {
-            width: 50,
-            height: 50,
-            borderRadius: 4,
-            marginRight: 10
-        },
-        description: {
-            flexDirection: 'column',
-        },
-        repoFacts: {
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: 'center'
-        },
-        fact: {
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center"
-        },
-        boltText: {
-            fontWeight: 'bold',
-            marginBottom: 5,
-        },
-        greyText: {
-            color: 'grey',
-            marginBottom: 10,
-        },
-        buttonStyle: {
-            backgroundColor: '#0366d6',
-            borderRadius: 4,
-            color: 'white',
-            padding: 5,
-        }
+const styles = StyleSheet.create({
+    RepoContainer: {
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: 'white',
+    },
+    descriptionHead: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        marginBottom: 15,
+    },
+    avatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 4,
+        marginRight: 10,
+    },
+    description: {
+        flex:1
+    },
+    repoFacts: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: 'center'
+    },
+    fact: {
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    boltText: {
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    greyText: {
+        color: 'grey',
+        marginBottom: 10,
+    },
+    buttonStyle: {
+        backgroundColor: '#0366d6',
+        borderRadius: 5,
+        color: 'white',
+        alignSelf: "baseline",
+        padding: 5
+    }
 
-    });
+});
+
+const RepositiryItem = ({ repository }) => {
+
     return <View style={styles.RepoContainer}>
         <View style={styles.descriptionHead}>
-            <Image source={repository.ownerAvatarUrl} style={styles.avatar} />
-            <View style={styles.description}>
+            <Image source={{ uri: repository.ownerAvatarUrl }} style={styles.avatar} />
+            <View style={styles.description} >
                 <Text style={styles.boltText}>{repository.fullName}</Text>
-                <Text style={styles.greyText}>{repository.description}</Text>
-                <Text>
-                    <Text style={styles.buttonStyle}>{repository.language}</Text>
-                </Text>
+                <View><Text style={styles.greyText}>{repository.description}</Text></View>
+                <Text style={styles.buttonStyle}>{repository.language}</Text>
             </View>
         </View>
         <View style={styles.repoFacts}>
