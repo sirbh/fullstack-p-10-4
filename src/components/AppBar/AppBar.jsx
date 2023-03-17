@@ -22,7 +22,6 @@ const AppBar = () => {
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
   const { data } = useQuery(ME)
-  console.log(data)
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
