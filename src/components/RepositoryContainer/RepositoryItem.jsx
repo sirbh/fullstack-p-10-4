@@ -1,11 +1,14 @@
-import { View, Image, StyleSheet } from "react-native"
-import Text from "./Text";
+import { View, Image, StyleSheet, Pressable } from "react-native"
+import { useNavigate } from "react-router-native";
+import Text from "../Text";
+import * as Linking from 'expo-linking';
 
 const styles = StyleSheet.create({
     RepoContainer: {
         padding: 10,
         marginBottom: 10,
         backgroundColor: 'white',
+        flexDirection: 'column'
     },
     descriptionHead: {
         flexDirection: 'row',
@@ -19,7 +22,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     description: {
-        flex:1
+        flex: 1
     },
     repoFacts: {
         flexDirection: "row",
@@ -45,13 +48,28 @@ const styles = StyleSheet.create({
         color: 'white',
         alignSelf: "baseline",
         padding: 5
+    },
+    fullWidth: {
+        backgroundColor: '#0366d6',
+        borderRadius: 5,
+        padding: 15,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 15
+    },
+    whiteText: {
+        color: 'white',
     }
+
 
 });
 
 const RepositiryItem = ({ repository }) => {
 
-    return <View style={styles.RepoContainer}>
+    const navigate = useNavigate()
+
+    return <Pressable onPress={() => navigate(`/repository/${repository.id}`)}><View style={styles.RepoContainer} testID="repositoryItem">
         <View style={styles.descriptionHead}>
             <Image source={{ uri: repository.ownerAvatarUrl }} style={styles.avatar} />
             <View style={styles.description} >
@@ -77,12 +95,12 @@ const RepositiryItem = ({ repository }) => {
                 <Text style={styles.boltText}>{repository.ratingAverage > 1000 ? (repository.ratingAverage / 1000).toFixed(1) + 'k' : repository.ratingAverage}</Text>
                 <Text>Ratings</Text>
             </View>
-            {/* <Text>Stars: {repository.stargazersCount}</Text>
-            <Text>Forks: {repository.forksCount}</Text>
-            <Text>Reviews: {repository.reviewCount}</Text>
-            <Text>Ratings: {repository.ratingAverage}</Text> */}
         </View>
+        {repository.url ? <Pressable style={styles.fullWidth} onPress={()=>{Linking.openURL(repository.url)}}>
+            <Text style={styles.whiteText}>Open In Github</Text>
+        </Pressable> : null}
     </View>
+    </Pressable>
 }
 
 export default RepositiryItem

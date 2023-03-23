@@ -32,18 +32,42 @@ const AppBar = () => {
           tabText={"Repositories"}
         />
         {data?.me ?
-          <AppBarTab
-            onPress={async () => {
-              await authStorage.removeAccessToken()
-              apolloClient.resetStore();
-            }}
-            tabText={"Sign Out"}
-          /> : <AppBarTab
-            onPress={() => {
-              navigate("/sign-in");
-            }}
-            tabText={"Sign In"}
-          />}
+          <>
+            <AppBarTab
+              onPress={async () => {
+                navigate('/add-review')
+              }}
+              tabText={"Create a review"}
+            />
+            <AppBarTab
+              onPress={async () => {
+                navigate('/my-reviews')
+              }}
+              tabText={"My Reviews"}
+            />
+             <AppBarTab
+              onPress={async () => {
+                await authStorage.removeAccessToken()
+                navigate('/')
+                apolloClient.resetStore();
+              }}
+              tabText={"Sign Out"}
+            />
+          </>
+          : <>
+            <AppBarTab
+              onPress={() => {
+                navigate("/sign-in");
+              }}
+              tabText={"Sign In"}
+            />
+            <AppBarTab
+              onPress={() => {
+                navigate("/sign-up");
+              }}
+              tabText={"Sign Up"}
+            />
+          </>}
       </ScrollView>
     </View>
   );

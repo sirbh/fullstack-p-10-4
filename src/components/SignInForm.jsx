@@ -25,7 +25,7 @@ const SignInForm = ({handleSubmit}) => {
     return <View>
     <FormikTextInput name="username" placeholder="username" />
     <FormikTextInput name="password" placeholder="password"  secureTextEntry />
-    <Pressable onPress={handleSubmit} style={styles.button}>
+    <Pressable onPress={handleSubmit} style={styles.button} testID="signin">
         <Text style={styles.buttonText}>Sign In</Text>
     </Pressable>
 </View>
